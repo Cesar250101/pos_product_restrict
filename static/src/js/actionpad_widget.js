@@ -22,38 +22,38 @@ Screen.ActionpadWidget = Screen.ActionpadWidget.include({
                     
              }
             
-            rpc.query({
-                model: 'pos.order',
-                method: 'get_product',
-                args : [order.attributes.client.id, product_list,order.attributes.client.name]
-            }).then(function(data){
-                if (data['data'] === 'true'){
-                    self.gui.back();
-                    self.gui.show_popup('alert',{
-                        'title': _t('Warning'),
-                        'body':  _t('Order is already created for ' + data["client"] + '.'),
-                    });
+            // rpc.query({
+            //     model: 'pos.order',
+            //     method: 'get_product',
+            //     args : [order.attributes.client.id, product_list,order.attributes.client.name]
+            // }).then(function(data){
+            //     if (data['data'] === 'true'){
+            //         self.gui.back();
+            //         self.gui.show_popup('alert',{
+            //             'title': _t('Warning'),
+            //             'body':  _t('Ya existe un retiro dentro de los últimos 7 días para el cliente  ' + data["client"] + '.'),
+            //         });
 
-                }
-                else{
-                        console.log('huuuuuuu')
-                     	var has_valid_product_lot = _.every(order.orderlines.models, function(line){
-                		return line.has_valid_product_lot();
-            			});
-			            if(!has_valid_product_lot){
-			                self.gui.show_popup('confirm',{
-			                    'title': _t('Empty Serial/Lot Number'),
-			                    'body':  _t('One or more product(s) required serial/lot number.'),
-			                    confirm: function(){
-			                        self.gui.show_screen('payment');
-			                    },
-			                });
-			            }
-			            else{
-		                		self.gui.show_screen('payment');
-		            		}
-                	}
-            });
+            //     }
+            //     else{
+            //             console.log('huuuuuuu')
+            //          	var has_valid_product_lot = _.every(order.orderlines.models, function(line){
+            //     		return line.has_valid_product_lot();
+            // 			});
+			//             if(!has_valid_product_lot){
+			//                 self.gui.show_popup('confirm',{
+			//                     'title': _t('Empty Serial/Lot Number'),
+			//                     'body':  _t('One or more product(s) required serial/lot number.'),
+			//                     confirm: function(){
+			//                         self.gui.show_screen('payment');
+			//                     },
+			//                 });
+			//             }
+			//             else{
+		    //             		self.gui.show_screen('payment');
+		    //         		}
+            //     	}
+            // });
             
            
         });
